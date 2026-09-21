@@ -1,0 +1,21 @@
+sources:
+  survey:
+    path: data/orig_data/nireland.csv
+    sha256: 0109ee8b01e204e962c95b8ddffa006bcd7563d5e3fae727b3ce14c4e2e83b9b
+    role: CSV mirror of the original merged raw survey export
+  discussion_groups:
+    path: data/groups.csv
+    sha256: 77235b6cc5ab095a027e932fb2301929066f86e872945c27c0269c2093ea9ab6
+    role: Small-group membership linked by respondent identifier
+  open_ended_coding:
+    path: data/open_ended/fin.csv
+    sha256: 314a9a9abb40c6094dab2e7c9af761041557b791240f0932b3848699e861f39c
+    role: Two independent codes and adjudication for open-ended responses
+  raw_survey:
+    path: data/orig_data/nireland.dta
+    sha256: 305c8646632cfc36ca55177771a89aa2aa38149f5ab394ec14428bf9ffa7fffa
+    role: Original merged Stata survey export retained alongside its CSV mirror
+  original_manuscript:
+    path: ms/Learning of Arguments.pdf
+    sha256: 648eb037b65613d67a7bf232056d1aa93f4768e03c45a9681accd2b081a71097
+    role: August 2014 manuscript used to reconstruct the editable source

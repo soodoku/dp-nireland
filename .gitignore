@@ -40,3 +40,40 @@ vignettes/*.pdf
 
 # R Environment Variables
 .Renviron
+
+# Project environment
+.DS_Store
+.here
+renv/library/
+renv/staging/
+renv/.locks/
+
+# Rebuilt analysis data
+data/derived/
+
+# LaTeX build products
+ms/main.aux
+ms/main.bbl
+ms/main.bcf
+ms/main.blg
+ms/main.fdb_latexmk
+ms/main.fls
+ms/main.log
+ms/main.out
+ms/main.run.xml
+ms/main.synctex.gz
+ms/main.xdv
+ms/supplement.aux
+ms/supplement.bbl
+ms/supplement.bcf
+ms/supplement.blg
+ms/supplement.fdb_latexmk
+ms/supplement.fls
+ms/supplement.log
+ms/supplement.out
+ms/supplement.run.xml
+ms/supplement.synctex.gz
+ms/supplement.xdv
+
+# Rendered-page QA
+build/
