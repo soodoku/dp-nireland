@@ -19,3 +19,16 @@ sources:
     path: ms/Learning of Arguments.pdf
     sha256: 648eb037b65613d67a7bf232056d1aa93f4768e03c45a9681accd2b081a71097
     role: August 2014 manuscript used to reconstruct the editable source
+
+upstream_candidate:
+  status: pinned_not_connected
+  repository: soodoku/dp-data
+  commit: e8e392b7e07ffd7215b900d36db7f9958fac882b
+  sources:
+    survey:
+      path: data/northern-ireland-2007/survey.parquet
+      sha256: b7ded85f23f5115aef6c45041081d9f1126fb8017b5bcd70d649d9215c9860c1
+    discussion_groups:
+      path: output/memberships.parquet
+      sha256: c7ff7c33ec4f6a6c9f99e50e1a8f10a9fe4171ad6aaf556233cf6fd91ef3b97b
+      poll_id: northern-ireland-2007
