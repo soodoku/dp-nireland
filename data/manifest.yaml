@@ -1,34 +1,33 @@
 sources:
   survey:
-    path: data/orig_data/nireland.csv
-    sha256: 0109ee8b01e204e962c95b8ddffa006bcd7563d5e3fae727b3ce14c4e2e83b9b
-    role: CSV mirror of the original merged raw survey export
+    repository: dp-data
+    path: data/northern-ireland-2007/survey.parquet
+    sha256: b7ded85f23f5115aef6c45041081d9f1126fb8017b5bcd70d649d9215c9860c1
+    role: Numeric survey source; all 868 rows retained; verbatim fields excluded
   discussion_groups:
-    path: data/groups.csv
-    sha256: 77235b6cc5ab095a027e932fb2301929066f86e872945c27c0269c2093ea9ab6
-    role: Small-group membership linked by respondent identifier
+    repository: dp-data
+    path: data/northern-ireland-2007/groups.csv
+    sha256: cf7f63cb0c41bdf03f510e9a006b931d818e702bbd0ecd29ad029942b7ead6a1
+    role: Headerless source roster; historical reader behavior preserved
   open_ended_coding:
-    path: data/open_ended/fin.csv
-    sha256: 314a9a9abb40c6094dab2e7c9af761041557b791240f0932b3848699e861f39c
-    role: Two independent codes and adjudication for open-ended responses
-  raw_survey:
-    path: data/orig_data/nireland.dta
-    sha256: 305c8646632cfc36ca55177771a89aa2aa38149f5ab394ec14428bf9ffa7fffa
-    role: Original merged Stata survey export retained alongside its CSV mirror
+    repository: dp-data
+    path: data/northern-ireland-2007/argument-codes.parquet
+    sha256: 6f611737c3089f63cecda665d66874a64542790d4dcbbb9fd398a99c90d06b99
+    role: Unadjudicated coder labels for 274 respondents; no verbatim responses
   original_manuscript:
+    repository: dp-nireland
     path: ms/Learning of Arguments.pdf
     sha256: 648eb037b65613d67a7bf232056d1aa93f4768e03c45a9681accd2b081a71097
     role: August 2014 manuscript used to reconstruct the editable source
 
-upstream_candidate:
-  status: pinned_not_connected
+upstream:
   repository: soodoku/dp-data
-  commit: e8e392b7e07ffd7215b900d36db7f9958fac882b
-  sources:
-    survey:
-      path: data/northern-ireland-2007/survey.parquet
-      sha256: b7ded85f23f5115aef6c45041081d9f1126fb8017b5bcd70d649d9215c9860c1
-    discussion_groups:
-      path: output/memberships.parquet
-      sha256: c7ff7c33ec4f6a6c9f99e50e1a8f10a9fe4171ad6aaf556233cf6fd91ef3b97b
-      poll_id: northern-ireland-2007
+  release: v0.2.2
+  commit: bce1e0e3aea578b71090dde5348ca66ccb778048
+
+provenance:
+  original_repository: soodoku/dp-nireland
+  original_commit: 929e45d32213e0dd4516e510731ddb9e2c309006
+  historical_inventory: audit/source_relocation.csv
+  numerical_baseline: audit/numerical_baseline.csv
+  policy: Public analytical inputs replace vault dependencies; all 19 numerical outputs must remain byte-identical

@@ -16,17 +16,25 @@ assert_unique <- function(data, columns, label) {
   invisible(data)
 }
 
-verify_manifest <- function(path = here::here("data", "manifest.yaml")) {
+verify_manifest <- function(path = here::here("data", "manifest.yaml"),
+                            dp_data_root = DP_DATA_ROOT) {
   sources <- yaml::read_yaml(path)$sources
   for (name in names(sources)) {
     source <- sources[[name]]
-    source_path <- here::here(source$path)
+    root <- if (identical(source$repository, "dp-data")) dp_data_root else here::here()
+    source_path <- file.path(root, source$path)
     if (!file.exists(source_path)) {
-      stop("Missing source file: ", source$path, call. = FALSE)
+      stop("Missing source file: ", source_path,
+        ". See docs/data.md for dp-data setup.",
+        call. = FALSE
+      )
     }
     actual <- digest::digest(source_path, algo = "sha256", file = TRUE)
     if (!identical(actual, source$sha256)) {
-      stop("Source hash mismatch: ", source$path, call. = FALSE)
+      stop("Source hash mismatch: ", source_path,
+        ". Investigate the source change before updating its pin.",
+        call. = FALSE
+      )
     }
   }
   invisible(TRUE)
@@ -153,4 +161,31 @@ format_number <- function(x, digits = 2L) {
 
 format_p <- function(x) {
   ifelse(x < 0.001, "$< .001$", paste0("$= ", sub("^0", "", format_number(x, 3L)), "$"))
+}
+
+verify_numerical_baseline <- function(
+  baseline = here::here("audit", "numerical_baseline.csv"),
+  root = here::here(),
+  report = file.path(AUDIT_DIR, "numerical_comparison.csv")
+) {
+  expected <- readr::read_csv(baseline, show_col_types = FALSE)
+  expected$actual_sha256 <- vapply(expected$path, function(path) {
+    target <- file.path(root, path)
+    if (!file.exists(target)) {
+      return(NA_character_)
+    }
+    digest::digest(target, algo = "sha256", file = TRUE)
+  }, character(1L))
+  expected$unchanged <- !is.na(expected$actual_sha256) &
+    expected$sha256 == expected$actual_sha256
+  write_csv(expected, report)
+  if (!all(expected$unchanged)) {
+    stop(
+      "Numerical baseline changed: ",
+      paste(expected$path[!expected$unchanged], collapse = ", "),
+      ". Explain differences before updating audit/numerical_baseline.csv.",
+      call. = FALSE
+    )
+  }
+  invisible(expected)
 }

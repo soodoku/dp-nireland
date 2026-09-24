@@ -1,10 +1,6 @@
 # Prepare respondent-level sample membership and covariates from the raw export.
 
-raw_survey <- readr::read_csv(
-  SOURCE_SURVEY,
-  na = c("", "NA"),
-  show_col_types = FALSE
-)
+raw_survey <- arrow::read_parquet(SOURCE_SURVEY)
 raw_groups <- readr::read_csv(
   SOURCE_GROUPS,
   na = c("", "NA"),

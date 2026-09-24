@@ -10,11 +10,21 @@ permissions:
 jobs:
   check:
     runs-on: ubuntu-latest
+    env:
+      DP_DATA_ROOT: ${{ github.workspace }}/build/dp-data
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7.0.1
+      - name: Check out public data sources
+        uses: actions/checkout@v7.0.1
+        with:
+          repository: soodoku/dp-data
+          ref: bce1e0e3aea578b71090dde5348ca66ccb778048
+          path: build/dp-data
+          persist-credentials: false
       - uses: r-lib/actions/setup-r@v2
         with:
           r-version: renv
+          use-public-rspm: true
       - uses: r-lib/actions/setup-renv@v2
       - name: Install TeX
         run: |

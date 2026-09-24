@@ -27,7 +27,7 @@ test_that("respondent identifiers and analysis keys are unique", {
 
 test_that("survey variables are rebuilt from raw columns", {
   survey <- readr::read_csv(file.path(DERIVED_DIR, "survey.csv"), show_col_types = FALSE)
-  raw <- readr::read_csv(SOURCE_SURVEY, show_col_types = FALSE) |>
+  raw <- arrow::read_parquet(SOURCE_SURVEY) |>
     dplyr::transmute(
       respondent_id = as.integer(.data$cserial),
       attend = .data$attend,

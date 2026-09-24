@@ -12,6 +12,7 @@ Description: Reproducible analysis and manuscript for a Deliberative Poll in
 License: MIT + file LICENSE
 Encoding: UTF-8
 Imports:
+    arrow,
     clubSandwich,
     digest,
     dplyr,

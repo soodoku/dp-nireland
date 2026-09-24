@@ -1,3 +1,6 @@
+DP_DATA_ROOT ?= $(abspath ../dp-data)
+export DP_DATA_ROOT
+
 .PHONY: restore format lint test analysis paper check ci-docker clean
 
 restore:
@@ -22,6 +25,7 @@ check: lint test paper
 
 ci-docker:
 	docker run --rm -e RENV_PATHS_LIBRARY=/tmp/renv-library \
+		-e DP_DATA_ROOT=/dp-data -v "$(DP_DATA_ROOT):/dp-data:ro" \
 		-v "$(CURDIR):/work" -w /work rocker/r-ver:4.6.0 bash -lc \
 		"apt-get update && apt-get install -y --no-install-recommends make cmake curl pandoc \
 		libfontconfig1-dev libuv1-dev libx11-dev libxml2-dev \

@@ -5,7 +5,7 @@ dir.create(font_cache, recursive = TRUE, showWarnings = FALSE)
 Sys.setenv(XDG_CACHE_HOME = font_cache)
 
 required <- c(
-  "here", "dplyr", "tidyr", "readr", "stringr", "purrr", "ggplot2",
+  "arrow", "here", "dplyr", "tidyr", "readr", "stringr", "purrr", "ggplot2",
   "clubSandwich", "tibble", "yaml", "digest", "knitr"
 )
 missing <- required[!vapply(required, requireNamespace, logical(1L), quietly = TRUE)]
@@ -33,3 +33,5 @@ for (script in c(
   message("Running scripts/", script)
   source(here::here("scripts", script), local = new.env(parent = globalenv()))
 }
+
+verify_numerical_baseline()

@@ -1,6 +1,6 @@
 # How Can You Think That?
 
-This repository contains the data, analysis, and manuscript for *How Can You
+This repository contains the analysis and manuscript for *How Can You
 Think That? Deliberation and the Learning of Opposing Arguments*, by Gaurav
 Sood, Robert C. Luskin, and James S. Fishkin.
 
@@ -17,9 +17,15 @@ interpretation is recorded in [`docs/design.md`](docs/design.md).
 The project uses R and XeLaTeX. From the repository root:
 
 ```sh
+git clone --branch v0.2.2 --depth 1 https://github.com/soodoku/dp-data.git ../dp-data
 make restore
 make check
 ```
+
+The public dp-data release supplies all three analytical inputs. A downloaded
+release archive works too; extract it to `../dp-data`, or set `DP_DATA_ROOT`
+to its location. Builds verify the pinned file hashes before reading data.
+See [`docs/data.md`](docs/data.md) for the source contracts and update procedure.
 
 The individual targets are:
 
@@ -40,7 +46,7 @@ Inline manuscript numbers come from [`tabs/numbers.tex`](tabs/numbers.tex).
 
 ## Repository structure
 
-- `data/`: original survey, coding, questionnaire, and contextual files
+- `data/`: source manifest and ignored generated analysis data
 - `scripts/`: numbered R pipeline
 - `tests/`: data-contract and coding tests
 - `tabs/`: headline CSV results and generated LaTeX table fragments
@@ -71,11 +77,10 @@ by discussion group while treating ungrouped respondents as singleton clusters.
 
 ## Data responsibility
 
-The repository contains pseudonymous respondent-level survey data and verbatim
-open-ended answers. Automated screening found no email address, telephone number,
-or UK postcode pattern in the analyzed response fields, but that is not proof of
-de-identification. Review [`docs/data.md`](docs/data.md) before making a new
-public data release.
+The public inputs contain a numeric survey, group roster, and coder labels.
+Verbatim responses are excluded. Historical files containing response text remain
+in the original repository history and the local source archive; they are not
+required to reproduce the paper. See [`docs/data.md`](docs/data.md).
 
 The MIT license covers code and documentation only. It does not relicense the
 source data.

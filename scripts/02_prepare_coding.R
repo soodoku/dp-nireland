@@ -1,33 +1,19 @@
 # Reshape, normalize, and adjudicate the open-ended coding.
 
-coding_wide <- readr::read_csv(
-  SOURCE_CODING,
-  na = c("", "NA"),
-  show_col_types = FALSE,
-  name_repair = "minimal"
+coding_source <- arrow::read_parquet(SOURCE_CODING)
+assert_columns(
+  coding_source,
+  c("respondent_id", "wave", "topic", "side", "slot", "coder", "raw_code"),
+  "Argument coding"
 )
-names(coding_wide)[names(coding_wide) == "Participant ID"] <- "respondent_id"
-
-coder_columns <- grep(
-  "^t[23]\\.q(18|19|20|21)\\.[ab][1-5]\\.(ch|la|monty)$",
-  names(coding_wide),
-  value = TRUE
+assert_unique(
+  coding_source, c("respondent_id", "wave", "topic", "side", "slot", "coder"),
+  "Argument coding"
 )
-if (length(coder_columns) != 240L) stop("Expected 240 coder columns.", call. = FALSE)
 
-coding_long <- coding_wide |>
-  dplyr::select("respondent_id", dplyr::all_of(coder_columns)) |>
-  tidyr::pivot_longer(
-    -"respondent_id",
-    names_to = c("wave", "topic", "side", "slot", "coder"),
-    names_pattern = "^t([23])\\.q(18|19|20|21)\\.([ab])([1-5])\\.(ch|la|monty)$",
-    values_to = "raw_code",
-    values_transform = as.character
-  ) |>
+coding_long <- coding_source |>
   dplyr::mutate(
-    respondent_id = as.integer(.data$respondent_id),
-    wave = as.integer(.data$wave),
-    slot = as.integer(.data$slot),
+    topic = as.character(.data$topic),
     signature = vapply(.data$raw_code, code_signature, character(1L))
   ) |>
   dplyr::select(-"raw_code") |>
