@@ -45,7 +45,21 @@ The baseline was rebuilt and tested before relocation. The external-input build
 reproduced all 19 pinned CSV and LaTeX outputs exactly, including intermediate
 survey and coding tables, estimates, standard errors, and manuscript numbers.
 `audit/numerical_baseline.csv` records their hashes. Every full analysis writes
-`audit/numerical_comparison.csv` and fails if any artifact differs or is absent.
+`audit/numerical_comparison.csv`. Seventeen outputs must match byte-for-byte.
+For the two estimate CSVs, `audit/baseline/` retains the original full-precision
+reference files, whose hashes must match the original baseline. The six
+inferential statistics may differ by at most `1e-10` in absolute value;
+column names, row order, text, missingness, sample sizes, and cluster counts must
+match exactly. The report distinguishes byte identity (`unchanged`) from
+acceptance (`equivalent`) and records the largest absolute numeric difference.
+Missing outputs or larger differences fail the build.
+
+Linux CI at commit `74206ed` reproduced all 17 other outputs exactly, but numerical
+linear algebra produced coefficient differences up to `1.33e-14`, interval
+endpoint differences up to `3.29e-14`, and degrees-of-freedom differences up to
+`6.59e-11` relative to the Mac baseline. Counts and formatted paper numbers were
+identical. This documented tolerance accommodates those differences without
+rounding estimates, replacing reference values, or relaxing source checksums.
 PDF bytes are excluded because creation metadata can change between builds.
 
 Before changing a source, save the current generated outputs and record the old
