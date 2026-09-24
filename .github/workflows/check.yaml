@@ -32,3 +32,6 @@ jobs:
           sudo apt-get install -y latexmk texlive-xetex texlive-latex-extra texlive-fonts-recommended biber
       - name: Check analysis and paper
         run: make check
+      - name: Show numerical differences on failure
+        if: failure()
+        run: git diff -- tabs/main_estimates.csv tabs/directional_estimates.csv audit/numerical_comparison.csv
