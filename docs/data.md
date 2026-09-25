@@ -2,8 +2,9 @@
 
 ## Public upstream inputs
 
-All analytical inputs are supplied by dp-data v0.2.2 under
-`data/northern-ireland-2007/`. Clone that release beside this repository or
+All analytical inputs are supplied by dp-data v0.2.2. The survey and coding
+files are under `data/northern-ireland-2007/`; typed group memberships are in
+`output/memberships.parquet`. Clone that release beside this repository or
 extract its source archive to `../dp-data`, then run `make restore` and
 `make check`. Set `DP_DATA_ROOT` for a different location. CI checks out the
 pinned upstream commit; no vault or historical Git extraction is needed.
@@ -15,10 +16,9 @@ The three inputs are:
 - `survey.parquet`: 868 rows and 449 columns, including `source_row`. The public
   numeric survey excludes 80 verbatim fields. Every variable used by the paper
   agrees with the previous CSV reader.
-- `groups.csv`: the original headerless roster with 124 mappings. Its line endings
-  differ from the former local copy, but all records agree. The reader still
-  consumes the first record as column headings, preserving the historical result
-  pending the separate correction described below.
+- `output/memberships.parquet`: typed memberships across polls. The Northern
+  Ireland deliberation session has 124 respondent-to-group mappings, including
+  the first record of its original headerless roster.
 - `argument-codes.parquet`: 65,760 records for 274 respondents, with columns
   `respondent_id`, `wave`, `topic`, `side`, `slot`, `coder`, and `raw_code`.
   The first six columns identify a record. Waves are 2/3, topics 18–21, sides
@@ -73,18 +73,28 @@ Never refresh all pins merely to make a failing check pass. Exact output checks
 can also flag serialization or numerical-library changes; distinguish these from
 source changes using the saved values and R environment.
 
-## Deferred roster correction
+## Group roster correction
 
-The group roster begins with respondent `112084` in group `N`. The preserved
-reader treats that record as a header, leaving 123 mappings and one participant
-without a group. Correcting this can change clustering, standard errors,
-degrees of freedom, and intervals. It must be evaluated separately against the
-current baseline. dp-data records the issue as NI-01 in `docs/poll-issues.md`.
+The source roster is headerless and contains 124 mappings. The former reader
+treated its first record, respondent `112084` in group `N`, as a header. That
+attendee became a singleton cluster even though the source assigns them to an
+existing discussion group. The reader now uses dp-data's typed membership
+export and checks all 124 mappings. It retains the upstream group labels
+instead of assigning arbitrary numeric IDs. That changes the representation
+of known groups; only respondent `112084` changes group membership. The
+respondent-wave and slot tables carry the corrected assignment forward.
+Point estimates, coded responses and analysis sample sizes are unchanged.
+Cluster counts fall by one in affected comparisons, changing CR2 standard
+errors, degrees of freedom, intervals and p-values. Across all generated
+result tables, no p-value crosses 0.05 and no confidence interval changes
+whether it includes zero. The main paired comparison has 19 clusters rather
+than the historical 20. The previous values remain in Git history; the
+baseline pins now record the corrected build. dp-data records the source issue
+as NI-01 in `docs/poll-issues.md`.
 
 The public survey also differs from the historical CSV in `t1q10h_6` and
 `intdate`, neither used here. Those differences are not recoding changes in this
-migration. `output/memberships.parquet` is a knowledge-analysis product and is
-not substituted for the original roster.
+migration.
 
 ## Missingness
 

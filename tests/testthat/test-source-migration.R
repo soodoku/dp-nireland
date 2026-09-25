@@ -45,7 +45,8 @@ test_that("all analytical sources are pinned public upstream files", {
   expect_length(upstream, 3L)
   expect_true(verify_manifest())
   expect_true(all(vapply(upstream, function(x) {
-    startsWith(x$path, "data/northern-ireland-2007/")
+    startsWith(x$path, "data/northern-ireland-2007/") ||
+      identical(x$path, "output/memberships.parquet")
   }, logical(1L))))
 })
 
