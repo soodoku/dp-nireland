@@ -22,7 +22,10 @@ test_that("respondent identifiers and analysis keys are unique", {
   expect_equal(anyDuplicated(survey$respondent_id), 0L)
   expect_equal(anyDuplicated(paste(wave$respondent_id, wave$wave)), 0L)
   expect_equal(length(unique(stats::na.omit(survey$group_id[survey$participant_t2]))), 20L)
-  expect_equal(sum(survey$participant_t2 & is.na(survey$group_id)), 1L)
+  expect_equal(sum(survey$participant_t2 & is.na(survey$group_id)), 0L)
+  expect_equal(survey$group_id[survey$respondent_id == 112084],
+               survey$group_id[survey$respondent_id == 172082])
+  expect_equal(survey$group_id[survey$respondent_id == 112084], "N")
 })
 
 test_that("survey variables are rebuilt from raw columns", {

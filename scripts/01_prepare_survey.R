@@ -1,11 +1,7 @@
 # Prepare respondent-level sample membership and covariates from the raw export.
 
 raw_survey <- arrow::read_parquet(SOURCE_SURVEY)
-raw_groups <- readr::read_csv(
-  SOURCE_GROUPS,
-  na = c("", "NA"),
-  show_col_types = FALSE
-)
+raw_groups <- arrow::read_parquet(SOURCE_GROUPS)
 
 assert_columns(
   raw_survey,
@@ -16,14 +12,23 @@ assert_columns(
   ),
   "Raw survey data"
 )
-assert_columns(raw_groups, c("112084", "N"), "Discussion-group data")
+assert_columns(
+  raw_groups,
+  c("poll_id", "respondent_id", "session_id", "group_id"),
+  "Discussion-group data"
+)
 
 groups <- raw_groups |>
+  dplyr::filter(
+    .data$poll_id == "northern-ireland-2007",
+    .data$session_id == "deliberation"
+  ) |>
   dplyr::transmute(
-    respondent_id = as.integer(.data[["112084"]]),
-    group_label = as.character(.data$N)
+    respondent_id = as.integer(.data$respondent_id),
+    group_label = as.character(.data$group_id)
   )
 assert_unique(groups, "respondent_id", "Discussion-group data")
+stopifnot(nrow(groups) == 124L)
 
 recode_five_point <- function(x) {
   dplyr::case_when(
@@ -78,7 +83,7 @@ survey <- survey_source |>
     participant_t2 = .data$participant_t2,
     participant_t3 = .data$participant_t3,
     control_t3 = .data$control_t3,
-    group_id = match(.data$group_label, sort(unique(groups$group_label))),
+    group_id = .data$group_label,
     age = as.numeric(.data$t1q2),
     female = as.integer(.data$female),
     catholic = dplyr::case_when(

@@ -6,9 +6,9 @@ sources:
     role: Numeric survey source; all 868 rows retained; verbatim fields excluded
   discussion_groups:
     repository: dp-data
-    path: data/northern-ireland-2007/groups.csv
-    sha256: cf7f63cb0c41bdf03f510e9a006b931d818e702bbd0ecd29ad029942b7ead6a1
-    role: Headerless source roster; historical reader behavior preserved
+    path: output/memberships.parquet
+    sha256: c7ff7c33ec4f6a6c9f99e50e1a8f10a9fe4171ad6aaf556233cf6fd91ef3b97b
+    role: Typed respondent-to-group memberships; 124 Northern Ireland rows
   open_ended_coding:
     repository: dp-data
     path: data/northern-ireland-2007/argument-codes.parquet
