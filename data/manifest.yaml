@@ -1,31 +1,10 @@
 sources:
   survey:
-    repository: dp-data
     path: data/northern-ireland-2007/survey.parquet
     sha256: b7ded85f23f5115aef6c45041081d9f1126fb8017b5bcd70d649d9215c9860c1
-    role: Numeric survey source; all 868 rows retained; verbatim fields excluded
   discussion_groups:
-    repository: dp-data
     path: output/memberships.parquet
     sha256: c7ff7c33ec4f6a6c9f99e50e1a8f10a9fe4171ad6aaf556233cf6fd91ef3b97b
-    role: Typed respondent-to-group memberships; 124 Northern Ireland rows
   open_ended_coding:
-    repository: dp-data
     path: data/northern-ireland-2007/argument-codes.parquet
     sha256: 6f611737c3089f63cecda665d66874a64542790d4dcbbb9fd398a99c90d06b99
-    role: Unadjudicated coder labels for 274 respondents; no verbatim responses
-  original_manuscript:
-    repository: dp-nireland
-    path: ms/Learning of Arguments.pdf
-    sha256: 648eb037b65613d67a7bf232056d1aa93f4768e03c45a9681accd2b081a71097
-    role: August 2014 manuscript used to reconstruct the editable source
-
-upstream:
-  repository: soodoku/dp-data
-  release: v0.2.2
-  commit: bce1e0e3aea578b71090dde5348ca66ccb778048
-
-provenance:
-  original_repository: soodoku/dp-nireland
-  original_commit: 929e45d32213e0dd4516e510731ddb9e2c309006
-  policy: Public analytical inputs replace vault dependencies

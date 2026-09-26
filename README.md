@@ -37,8 +37,8 @@ make paper
 make ci-docker
 ```
 
-The compiled paper is [`ms/main.pdf`](ms/main.pdf), and the Supporting
-Information is [`ms/supplement.pdf`](ms/supplement.pdf). Analytical results are
+The compiled paper and Supporting Information are in [`ms/main.pdf`](ms/main.pdf).
+Analytical results are
 stored together in the generated `data/derived/analysis_results.rds` object.
 The pipeline renders publication tables directly with `knitr::kable`; the two
 headline CSV files in `tabs/` provide machine-readable estimates.
@@ -51,7 +51,7 @@ Inline manuscript numbers come from [`tabs/numbers.tex`](tabs/numbers.tex).
 - `tests/`: data-contract and coding tests
 - `tabs/`: headline CSV results and generated LaTeX table fragments
 - `figs/`: generated publication figures
-- `ms/`: current manuscript, bibliography, and the August 2014 source PDF
+- `ms/`: manuscript, bibliography, and compiled paper
 - `docs/`: research-design and data documentation
 
 The source files used by the current pipeline and their SHA-256 hashes are
@@ -72,7 +72,7 @@ choice.
 
 Non-administered survey waves remain missing. They are never converted to zero.
 Uncertainty estimates use CR2 small-sample corrections, clustering participants
-by discussion group while treating ungrouped respondents as singleton clusters.
+by discussion group while treating controls as singleton clusters.
 
 ## Data responsibility
 

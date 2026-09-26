@@ -40,8 +40,7 @@ The unit is the respondent. The primary outcome sums forty possible response
 slots: five slots on each side of four policy proposals. Participants can share
 shocks induced by their moderated discussion group, whereas controls were not
 grouped. Inference therefore treats each observed participant discussion group
-as a cluster and each control respondent as a singleton cluster. One participant
-without a recorded group is also treated as a singleton. CR2 standard errors and
+as a cluster and each control respondent as a singleton cluster. CR2 standard errors and
 Satterthwaite degrees of freedom provide the small-sample correction. The
 available project files do not document a survey weight for these comparisons,
 so estimates are unweighted.

@@ -2,8 +2,7 @@ DP_DATA_ROOT <- Sys.getenv("DP_DATA_ROOT", unset = here::here("..", "dp-data"))
 SOURCE_MANIFEST <- yaml::read_yaml(here::here("data", "manifest.yaml"))
 source_path <- function(name) {
   entry <- SOURCE_MANIFEST$sources[[name]]
-  root <- if (identical(entry$repository, "dp-data")) DP_DATA_ROOT else here::here()
-  file.path(root, entry$path)
+  file.path(DP_DATA_ROOT, entry$path)
 }
 SOURCE_SURVEY <- source_path("survey")
 SOURCE_GROUPS <- source_path("discussion_groups")

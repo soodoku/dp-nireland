@@ -34,4 +34,4 @@ ci-docker:
 		make restore check"
 
 clean:
-	cd ms && latexmk -C main.tex supplement.tex
+	cd ms && latexmk -C main.tex

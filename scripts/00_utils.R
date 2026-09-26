@@ -21,8 +21,7 @@ verify_manifest <- function(path = here::here("data", "manifest.yaml"),
   sources <- yaml::read_yaml(path)$sources
   for (name in names(sources)) {
     source <- sources[[name]]
-    root <- if (identical(source$repository, "dp-data")) dp_data_root else here::here()
-    source_path <- file.path(root, source$path)
+    source_path <- file.path(dp_data_root, source$path)
     if (!file.exists(source_path)) {
       stop("Missing source file: ", source_path,
         ". See docs/data.md for dp-data setup.",
