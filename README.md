@@ -62,13 +62,13 @@ used.
 
 ## Main measurement decisions
 
-The primary outcome is a respondent-level count of response slots containing at
-least one substantive reason. Invalid, missing, and vague codes are excluded.
-Question-specific answers that merely attribute the other position to prejudice
-or ignorance are excluded in the primary measure and restored in a sensitivity
-analysis. Multi-label codes are parsed as sets. Unadjudicated coder conflicts
-remain unresolved; separate coder-specific estimates show the effect of that
-choice.
+The main outcome counts answers that give at least one reason for a school-policy
+view. Answers marked nonsense, missing, or vague do not count. For three questions,
+code 3 means the answer calls people with that view prejudiced or ignorant. The
+main count leaves out that code; a separate check includes it. Another valid code
+in the same answer still counts. When coders disagree and no third coder settles
+it, the main count is missing for that respondent and survey. We also report
+results from each original coder separately.
 
 Non-administered survey waves remain missing. They are never converted to zero.
 Uncertainty estimates use CR2 small-sample corrections, clustering participants
