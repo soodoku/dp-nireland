@@ -12,7 +12,6 @@ SOURCE_CODING <- source_path("open_ended_coding")
 DERIVED_DIR <- here::here("data", "derived")
 FIGURE_DIR <- here::here("figs")
 TABLE_DIR <- here::here("tabs")
-AUDIT_DIR <- here::here("audit")
 
 TOPIC_LABELS <- c(
   "18" = "All-ability schools",

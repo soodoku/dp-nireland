@@ -120,4 +120,4 @@ stopifnot(
 
 write_csv(survey, file.path(DERIVED_DIR, "survey.csv"))
 write_csv(survey_frame, file.path(DERIVED_DIR, "survey_frame.csv"))
-write_csv(sample_counts, file.path(AUDIT_DIR, "sample_counts.csv"))
+write_csv(sample_counts, file.path(DERIVED_DIR, "sample_counts.csv"))

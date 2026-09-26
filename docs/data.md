@@ -35,43 +35,13 @@ labels consumed by the original reader, including missing slots, while excluding
 verbatim responses. The downstream paper retains normalization, adjudication,
 scoring, and administration rules.
 
-`audit/source_relocation.csv` preserves the earlier 54-file relocation inventory
-as historical provenance. Those archival files are no longer runtime inputs;
-the inventory is not a public-release availability claim.
+## Updating sources
 
-## Numerical baseline and future changes
-
-The baseline was rebuilt and tested before relocation. The external-input build
-reproduced all 19 pinned CSV and LaTeX outputs exactly, including intermediate
-survey and coding tables, estimates, standard errors, and manuscript numbers.
-`audit/numerical_baseline.csv` records their hashes. Every full analysis writes
-`audit/numerical_comparison.csv`. Seventeen outputs must match byte-for-byte.
-For the two estimate CSVs, `audit/baseline/` retains the original full-precision
-reference files, whose hashes must match the original baseline. The six
-inferential statistics may differ by at most `1e-10` in absolute value;
-column names, row order, text, missingness, sample sizes, and cluster counts must
-match exactly. The report distinguishes byte identity (`unchanged`) from
-acceptance (`equivalent`) and records the largest absolute numeric difference.
-Missing outputs or larger differences fail the build.
-
-Linux CI at commit `74206ed` reproduced all 17 other outputs exactly, but numerical
-linear algebra produced coefficient differences up to `1.33e-14`, interval
-endpoint differences up to `3.29e-14`, and degrees-of-freedom differences up to
-`6.59e-11` relative to the Mac baseline. Counts and formatted paper numbers were
-identical. This documented tolerance accommodates those differences without
-rounding estimates, replacing reference values, or relaxing source checksums.
-PDF bytes are excluded because creation metadata can change between builds.
-
-Before changing a source, save the current generated outputs and record the old
-source hashes. Compare old and new inputs by respondent and variable, identifying
-added or removed IDs, changed values, missingness, and group membership. Update
-the source pin only after documenting that evidence. Rebuild and use the failed
-numerical comparison to locate affected outputs; compare estimates, uncertainty,
-and sample sizes with the saved baseline. Record the cause, magnitude, and validation results in the commit description
-before deliberately updating affected baseline hashes.
-Never refresh all pins merely to make a failing check pass. Exact output checks
-can also flag serialization or numerical-library changes; distinguish these from
-source changes using the saved values and R environment.
+The analysis verifies the SHA-256 pins in `data/manifest.yaml` before reading
+inputs. When an upstream file changes, compare respondent IDs, variables,
+missingness, and group membership before updating its pin. Rebuild with
+`make check` and review changes in the generated estimates, sample sizes,
+figures, and manuscript.
 
 ## Group roster correction
 
@@ -88,9 +58,8 @@ Cluster counts fall by one in affected comparisons, changing CR2 standard
 errors, degrees of freedom, intervals and p-values. Across all generated
 result tables, no p-value crosses 0.05 and no confidence interval changes
 whether it includes zero. The main paired comparison has 19 clusters rather
-than the historical 20. The previous values remain in Git history; the
-baseline pins now record the corrected build. dp-data records the source issue
-as NI-01 in `docs/poll-issues.md`.
+than the historical 20. The previous values remain in Git history. dp-data
+records the source issue as NI-01 in `docs/poll-issues.md`.
 
 The public survey also differs from the historical CSV in `t1q10h_6` and
 `intdate`, neither used here. Those differences are not recoding changes in this

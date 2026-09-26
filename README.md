@@ -41,7 +41,7 @@ The compiled paper is [`ms/main.pdf`](ms/main.pdf), and the Supporting
 Information is [`ms/supplement.pdf`](ms/supplement.pdf). Analytical results are
 stored together in the generated `data/derived/analysis_results.rds` object.
 The pipeline renders publication tables directly with `knitr::kable`; the two
-headline CSV files in `tabs/` remain as audit-facing machine-readable outputs.
+headline CSV files in `tabs/` provide machine-readable estimates.
 Inline manuscript numbers come from [`tabs/numbers.tex`](tabs/numbers.tex).
 
 ## Repository structure
@@ -52,7 +52,6 @@ Inline manuscript numbers come from [`tabs/numbers.tex`](tabs/numbers.tex).
 - `tabs/`: headline CSV results and generated LaTeX table fragments
 - `figs/`: generated publication figures
 - `ms/`: current manuscript, bibliography, and the August 2014 source PDF
-- `audit/`: internal diagnostics and validation records
 - `docs/`: research-design and data documentation
 
 The source files used by the current pipeline and their SHA-256 hashes are

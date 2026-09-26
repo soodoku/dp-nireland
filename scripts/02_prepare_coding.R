@@ -29,7 +29,7 @@ coding_long <- coding_source |>
     )
   )
 
-agreement_audit <- coding_long |>
+coder_agreement <- coding_long |>
   dplyr::summarise(
     slots = dplyr::n(),
     n_both_coded = sum(.data$both_coded),
@@ -48,7 +48,7 @@ n_labels <- sum(label_counts)
 expected_disagreement <- sum(label_counts * (n_labels - label_counts)) /
   (n_labels * (n_labels - 1L))
 observed_disagreement <- mean(!coding_long$coder_agreement[coding_long$both_coded])
-agreement_audit$krippendorff_alpha <- 1 - observed_disagreement / expected_disagreement
+coder_agreement$krippendorff_alpha <- 1 - observed_disagreement / expected_disagreement
 
 coding_sets <- coding_long |>
   dplyr::mutate(
@@ -58,5 +58,5 @@ coding_sets <- coding_long |>
   )
 
 write_csv(coding_long, file.path(DERIVED_DIR, "coding_slots.csv"))
-write_csv(agreement_audit, file.path(AUDIT_DIR, "coder_agreement.csv"))
+write_csv(coder_agreement, file.path(DERIVED_DIR, "coder_agreement.csv"))
 saveRDS(coding_sets, file.path(DERIVED_DIR, "coding_sets.rds"))

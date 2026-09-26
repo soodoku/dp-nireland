@@ -12,7 +12,9 @@ directional_estimates <- readr::read_csv(
 )
 results <- readRDS(file.path(DERIVED_DIR, "analysis_results.rds"))
 count_ratio <- results$count_ratio
-agreement <- readr::read_csv(file.path(AUDIT_DIR, "coder_agreement.csv"), show_col_types = FALSE)
+agreement <- readr::read_csv(
+  file.path(DERIVED_DIR, "coder_agreement.csv"), show_col_types = FALSE
+)
 
 t3 <- respondent_wave |>
   dplyr::filter(.data$wave == 3L, .data$participant_t3 | .data$control_t3)

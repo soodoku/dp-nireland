@@ -14,8 +14,12 @@ prompt_order <- results$prompt_order
 sample_composition <- results$sample_composition
 subgroup_means <- results$subgroup_means
 subgroup_estimates <- results$subgroup_estimates
-coder_audit <- readr::read_csv(file.path(AUDIT_DIR, "coder_agreement.csv"), show_col_types = FALSE)
-sample_counts <- readr::read_csv(file.path(AUDIT_DIR, "sample_counts.csv"), show_col_types = FALSE)
+coder_agreement <- readr::read_csv(
+  file.path(DERIVED_DIR, "coder_agreement.csv"), show_col_types = FALSE
+)
+sample_counts <- readr::read_csv(
+  file.path(DERIVED_DIR, "sample_counts.csv"), show_col_types = FALSE
+)
 
 dir.create(FIGURE_DIR, recursive = TRUE, showWarnings = FALSE)
 
@@ -501,9 +505,9 @@ write_tex_macros(
     PairedAbsoluteDifference = format_number(paired_absolute$estimate),
     PairedAbsoluteLow = format_number(paired_absolute$conf_low),
     PairedAbsoluteHigh = format_number(paired_absolute$conf_high),
-    CoderAgreement = format_number(100 * coder_audit$agreement_rate, 1L),
-    CoderAlpha = format_number(coder_audit$krippendorff_alpha, 2L),
-    UnresolvedSlots = as.character(coder_audit$unresolved_disagreements)
+    CoderAgreement = format_number(100 * coder_agreement$agreement_rate, 1L),
+    CoderAlpha = format_number(coder_agreement$krippendorff_alpha, 2L),
+    UnresolvedSlots = as.character(coder_agreement$unresolved_disagreements)
   ),
   file.path(TABLE_DIR, "numbers.tex")
 )

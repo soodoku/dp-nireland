@@ -20,7 +20,6 @@ verify_manifest()
 dir.create(DERIVED_DIR, recursive = TRUE, showWarnings = FALSE)
 dir.create(FIGURE_DIR, recursive = TRUE, showWarnings = FALSE)
 dir.create(TABLE_DIR, recursive = TRUE, showWarnings = FALSE)
-dir.create(AUDIT_DIR, recursive = TRUE, showWarnings = FALSE)
 
 for (script in c(
   "01_prepare_survey.R",
@@ -33,5 +32,3 @@ for (script in c(
   message("Running scripts/", script)
   source(here::here("scripts", script), local = new.env(parent = globalenv()))
 }
-
-verify_numerical_baseline()

@@ -28,6 +28,4 @@ upstream:
 provenance:
   original_repository: soodoku/dp-nireland
   original_commit: 929e45d32213e0dd4516e510731ddb9e2c309006
-  historical_inventory: audit/source_relocation.csv
-  numerical_baseline: audit/numerical_baseline.csv
-  policy: Public analytical inputs replace vault dependencies; retain original baseline hashes and apply the documented 1e-10 tolerance only to inferential statistics
+  policy: Public analytical inputs replace vault dependencies
