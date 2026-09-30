@@ -2,7 +2,7 @@
 
 ## Public upstream inputs
 
-All analytical inputs are supplied by dp-data v0.4.2. The survey and coding
+All analytical inputs are supplied by dp-data v0.4.5. The survey and coding
 files are under `data/northern-ireland-2007/`; typed group memberships are in
 `output/memberships.parquet`. Clone that release beside this repository or
 extract its source archive to `../dp-data`, then run `make restore` and
@@ -65,10 +65,10 @@ The public survey also differs from the historical CSV in `t1q10h_6` and
 `intdate`, neither used here. Those differences are not recoding changes in this
 migration.
 
-## Literal coding restoration in dp-data v0.4.2
+## Literal coding restoration in dp-data v0.4.5
 
 The earlier typed file had inherited CSV type inference that removed commas
-from some label sets: for example, `1,3` became `13`. The public v0.4.2 file
+from some label sets: for example, `1,3` became `13`. The public v0.4.5 file
 restores 176 substantive strings and two leading spaces from the original
 coding source. Its 65,760 keys, 274 people, survey data and group assignments
 are unchanged. This repository pins the repaired file and the published
