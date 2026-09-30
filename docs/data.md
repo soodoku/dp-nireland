@@ -2,7 +2,7 @@
 
 ## Public upstream inputs
 
-All analytical inputs are supplied by dp-data v0.2.2. The survey and coding
+All analytical inputs are supplied by dp-data v0.4.2. The survey and coding
 files are under `data/northern-ireland-2007/`; typed group memberships are in
 `output/memberships.parquet`. Clone that release beside this repository or
 extract its source archive to `../dp-data`, then run `make restore` and
@@ -31,7 +31,7 @@ Its original SHA-256 is
 `314a9a9abb40c6094dab2e7c9af761041557b791240f0932b3848699e861f39c`;
 the source is preserved at dp-nireland commit
 `929e45d32213e0dd4516e510731ddb9e2c309006`. The typed extract preserves the
-labels consumed by the original reader, including missing slots, while excluding
+literal source labels, including comma-separated sets and missing slots, while excluding
 verbatim responses. The downstream paper retains normalization, adjudication,
 scoring, and administration rules.
 
@@ -64,6 +64,55 @@ records the source issue as NI-01 in `docs/poll-issues.md`.
 The public survey also differs from the historical CSV in `t1q10h_6` and
 `intdate`, neither used here. Those differences are not recoding changes in this
 migration.
+
+## Literal coding restoration in dp-data v0.4.2
+
+The earlier typed file had inherited CSV type inference that removed commas
+from some label sets: for example, `1,3` became `13`. The public v0.4.2 file
+restores 176 substantive strings and two leading spaces from the original
+coding source. Its 65,760 keys, 274 people, survey data and group assignments
+are unchanged. This repository pins the repaired file and the published
+upstream commit `336f88a940d77e5a714e7521cac7343298ece608`.
+
+The existing parser now receives the original sets. Normalized labels change
+in 162 response slots, including 33 final adjudicated sets. For respondent
+`131201`, T2 question 21b slot 1 contains `1,3` from both coders. Restoring the
+second coder's comma resolves a false disagreement without requiring an
+adjudicator. Unresolved slots fall from 89 to 88. The respondent's primary T2
+total changes from missing to 12. Two other T2 totals change: `147026` from
+14 to 15 and `272038` from 26 to 27, because their adjudicated sets are `4,93`
+and `5,93`, respectively, rather than concatenated numeric labels.
+
+These are the only changes to primary respondent-wave totals. All survey
+samples and assignments remain unchanged. The T2 complete primary sample grows
+from 104 to 105; its mean changes from 9.202 to 9.248. The paired primary
+sample grows from 61 to 62. The following estimates are rebuilt with the
+same scoring and CR2 uncertainty calculations:
+
+| Comparison | Previous estimate | Repaired estimate | Previous N | Repaired N |
+| --- | ---: | ---: | ---: | ---: |
+| T3 participant minus control, total reasons | 1.121 | 1.121 | 185 | 185 |
+| Adjusted T3 participant minus control | 0.969 | 0.969 | 174 | 174 |
+| Paired T3 minus T2, total reasons | −0.721 | −0.871 | 61 | 62 |
+| T2 participant minus T3 control | 2.421 | 2.467 | 218 | 219 |
+| Paired supporting reasons | −1.097 | −1.151 | 72 | 73 |
+| Paired opposing reasons | −0.354 | −0.366 | 82 | 82 |
+| Paired signed balance | −0.220 | −0.202 | 51 | 52 |
+| Paired absolute imbalance | −0.203 | −0.187 | 51 | 52 |
+
+The paired signed-balance interval changes from [−0.416, −0.025] to
+[−0.422, 0.017], with p changing from 0.030 to 0.068. Its interval therefore
+now includes zero. The absolute-imbalance interval remains below zero:
+[−0.327, −0.048], p = 0.012. All primary T3 participant–control estimates,
+including the count ratio and directional comparisons, are unchanged.
+Item-level and coder-specific sensitivity estimates also change where the
+restored labels enter their counts; their source samples remain unchanged
+except for comparisons that recover the resolved T2 response.
+
+This update preserves the existing handling of `c` prefixes and code 94.
+Whether opposite-side reasons should be reassigned and whether 94 should
+be excluded are separate substantive decisions recorded upstream as NI-06;
+they are not part of this transport repair.
 
 ## Missingness
 
