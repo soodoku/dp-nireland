@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@v7.0.1
         with:
           repository: soodoku/dp-data
-          ref: bce1e0e3aea578b71090dde5348ca66ccb778048
+          ref: 336f88a940d77e5a714e7521cac7343298ece608
           path: build/dp-data
           persist-credentials: false
       - uses: r-lib/actions/setup-r@v2

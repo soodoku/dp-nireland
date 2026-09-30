@@ -17,7 +17,7 @@ interpretation is recorded in [`docs/design.md`](docs/design.md).
 The project uses R and XeLaTeX. From the repository root:
 
 ```sh
-git clone --branch v0.2.2 --depth 1 https://github.com/soodoku/dp-data.git ../dp-data
+git clone --branch v0.4.2 --depth 1 https://github.com/soodoku/dp-data.git ../dp-data
 make restore
 make check
 ```

@@ -54,3 +54,31 @@ test_that("survey variables are rebuilt from raw columns", {
   expect_equal(comparison$t2q5gr, comparison$t2q5g / 10)
   expect_equal(comparison$t3q5gr, comparison$t3q5g / 10)
 })
+
+test_that("restored literal coding reaches respondent totals", {
+  wave <- readr::read_csv(
+    file.path(DERIVED_DIR, "respondent_wave.csv"), show_col_types = FALSE
+  )
+  examples <- tibble::tibble(
+    respondent_id = c(131201L, 147026L, 272038L),
+    expected_total = c(12, 15, 27)
+  )
+  actual <- wave |>
+    dplyr::filter(.data$wave == 2L) |>
+    dplyr::inner_join(examples, by = "respondent_id", relationship = "one-to-one")
+  expect_equal(nrow(actual), 3L)
+  expect_equal(actual$primary_total, actual$expected_total)
+  slots <- readr::read_csv(
+    file.path(DERIVED_DIR, "coding_slots.csv"),
+    col_types = readr::cols(final_signature = readr::col_character()),
+    show_col_types = FALSE
+  ) |>
+    dplyr::filter(
+      .data$respondent_id == 131201L, .data$wave == 2L, .data$topic == 21L,
+      .data$side == "b", .data$slot == 1L
+    )
+  expect_equal(nrow(slots), 1L)
+  expect_true(slots$coder_agreement)
+  expect_false(slots$unresolved)
+  expect_identical(slots$final_signature, "1,3")
+})
