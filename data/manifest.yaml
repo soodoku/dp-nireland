@@ -1,0 +1,10 @@
+sources:
+  survey:
+    path: data/northern-ireland-2007/survey.parquet
+    sha256: ef80ee47074badf87c5b1ace2ec42fe3eacc37803291cfb2f659f4e332150ccb
+  discussion_groups:
+    path: output/memberships.parquet
+    sha256: c7ff7c33ec4f6a6c9f99e50e1a8f10a9fe4171ad6aaf556233cf6fd91ef3b97b
+  open_ended_coding:
+    path: data/northern-ireland-2007/argument-codes.parquet
+    sha256: 385ee2f18b117a8f4e0767ec4ae97b6de4fed886d3a055053581170bd5f2fafd

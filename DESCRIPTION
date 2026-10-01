@@ -1,0 +1,31 @@
+Package: nirelandpaper
+Type: Project
+Title: Deliberation and the Learning of Opposing Arguments
+Version: 0.1.0
+Authors@R: c(
+    person("Gaurav", "Sood", role = c("aut", "cre"), email = "gsood07@gmail.com"),
+    person("Robert C.", "Luskin", role = "aut"),
+    person("James S.", "Fishkin", role = "aut")
+  )
+Description: Reproducible analysis and manuscript for a Deliberative Poll in
+    Northern Ireland on learning supporting and opposing policy arguments.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Imports:
+    arrow,
+    clubSandwich,
+    digest,
+    dplyr,
+    ggplot2,
+    here,
+    knitr,
+    purrr,
+    readr,
+    stringr,
+    styler,
+    testthat,
+    tibble,
+    tidyr,
+    yaml,
+    lintr,
+    renv
